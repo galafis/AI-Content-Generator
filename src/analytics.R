@@ -25,24 +25,27 @@ DataAnalyzer <- setRefClass("DataAnalyzer",
       
       # Correlation analysis
       numeric_cols <- sapply(data, is.numeric)
+      cor_matrix <- NULL
       if(sum(numeric_cols) > 1) {
         cor_matrix <- cor(data[, numeric_cols], use = "complete.obs")
-        corrplot(cor_matrix, method = "circle")
+        # Removed direct call to corrplot
       }
       
-      # Visualization
+      # Visualization (return ggplot object instead of printing)
+      plot_obj <- NULL
       if(ncol(data) >= 2) {
-        p <- ggplot(data, aes_string(x = names(data)[1], y = names(data)[2])) +
+        plot_obj <- ggplot(data, aes_string(x = names(data)[1], y = names(data)[2])) +
           geom_point(alpha = 0.6) +
           geom_smooth(method = "lm") +
           theme_minimal() +
           labs(title = "Data Analysis Visualization")
-        print(p)
+        # Removed direct call to print(p)
       }
       
       results <<- list(
         summary = summary_stats,
-        correlation = if(exists("cor_matrix")) cor_matrix else NULL
+        correlation = cor_matrix,
+        plot = plot_obj
       )
     },
     
@@ -54,8 +57,3 @@ DataAnalyzer <- setRefClass("DataAnalyzer",
   )
 )
 
-# Example usage
-cat("R Analytics Module Loaded\n")
-cat("Usage: analyzer <- DataAnalyzer$new()\n")
-cat("       analyzer$load_data('data.csv')\n")
-cat("       analyzer$analyze()\n")

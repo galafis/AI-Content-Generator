@@ -1,5 +1,8 @@
 # AI Content Generator
 
+[Português](README.md) | [English](README_en.md)
+
+
 ![AI Content Generator Hero Image](/hero_image.png)
 
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
@@ -46,17 +49,37 @@ Complete content generation system that uses artificial intelligence to create t
 
 ```
 AI-Content-Generator/
-├── app.py                  # Main Python/Flask application
-├── app.js                  # JavaScript functionalities
-├── index.html              # Main web interface
-├── styles.css              # Modern and responsive styles
-├── analytics.R             # Statistical analysis scripts
-├── package.json            # Node.js dependencies
-├── requirements.txt        # Python dependencies
+├── src/                    # Application source code
+│   ├── app.py              # Main Python/Flask application
+│   ├── analytics.R         # Statistical analysis scripts
+│   └── content_generator.py # Content generation module
+├── index.html              # Main web interface (for GitHub Pages)
+├── app.js                  # JavaScript functionalities (for GitHub Pages)
+├── styles.css              # Modern and responsive styles (for GitHub Pages)
+
+├── tests/                  # Unit and integration tests
+│   ├── app.test.js         # JavaScript tests
+│   ├── test_analytics.R    # R tests
+│   └── test_config.py      # Python tests
+├── config/                 # Configuration files
+│   └── config.py           # Application configurations
+├── assets/                 # Images and other static resources
+│   ├── hero_image.png      # Professional hero image
+│   └── architecture.png    # System architecture diagram
+├── docs/                   # Additional documentation
 ├── .gitignore             # Files ignored by Git
 ├── LICENSE                # MIT License
-└── README.md              # Documentation
+├── package.json            # Node.js dependencies
+├── requirements.txt        # Python dependencies
+└── README.md              # Main documentation (Portuguese)
+└── README_en.md           # Main documentation (English)
 ```
+
+## 🗺️ System Architecture
+
+![Architecture Diagram](architecture.png)
+
+This diagram illustrates the system architecture, from user interaction with the frontend to backend processing, data analysis, and AI model usage.
 
 ## 🚀 Quick Start
 
@@ -264,7 +287,7 @@ Rscript tests/test_analytics.R
 - **Text Quality**: BLEU Score >0.8
 - **Analysis Accuracy**: >95% accuracy
 
-## 🚀 Deploy and Production
+## 🚀 Deployment and Production
 
 ### Local Deploy
 ```bash

@@ -12,7 +12,7 @@ class ApplicationManager {
     }
 
     async init() {
-        console.log('Initializing application...');
+        console.log("Initializing application...");
         
         // Modern async initialization
         await this.loadResources();
@@ -20,14 +20,14 @@ class ApplicationManager {
         this.startPerformanceMonitoring();
         
         this.initialized = true;
-        console.log('Application initialized successfully');
+        console.log("Application initialized successfully");
     }
 
     async loadResources() {
         // Simulate async resource loading
         return new Promise(resolve => {
             setTimeout(() => {
-                this.data.set('loadTime', Date.now());
+                this.data.set("loadTime", Date.now());
                 resolve();
             }, 100);
         });
@@ -35,43 +35,44 @@ class ApplicationManager {
 
     setupEventListeners() {
         // Modern event handling
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener("DOMContentLoaded", () => {
             this.enhanceUI();
+            this.setupContentGeneratorForm(); // Call the new form setup method
         });
 
         // Intersection Observer for animations
-        if ('IntersectionObserver' in window) {
+        if ("IntersectionObserver" in window) {
             this.setupScrollAnimations();
         }
 
         // Service Worker registration
-        if ('serviceWorker' in navigator) {
+        if ("serviceWorker" in navigator) {
             this.registerServiceWorker();
         }
     }
 
     enhanceUI() {
         // Add interactive features
-        const techCards = document.querySelectorAll('.tech-card');
+        const techCards = document.querySelectorAll(".tech-card");
         techCards.forEach((card, index) => {
             card.style.animationDelay = `${index * 0.1}s`;
-            card.classList.add('fade-in');
+            card.classList.add("fade-in");
             
-            card.addEventListener('click', () => {
-                this.showTechDetails(card.querySelector('h3').textContent);
+            card.addEventListener("click", () => {
+                this.showTechDetails(card.querySelector("h3").textContent);
             });
         });
 
         // Add loading states
-        const features = document.querySelectorAll('.feature');
+        const features = document.querySelectorAll(".feature");
         features.forEach(feature => {
-            feature.addEventListener('mouseenter', () => {
-                feature.style.transform = 'scale(1.02)';
-                feature.style.transition = 'transform 0.3s ease';
+            feature.addEventListener("mouseenter", () => {
+                feature.style.transform = "scale(1.02)";
+                feature.style.transition = "transform 0.3s ease";
             });
             
-            feature.addEventListener('mouseleave', () => {
-                feature.style.transform = 'scale(1)';
+            feature.addEventListener("mouseleave", () => {
+                feature.style.transform = "scale(1)";
             });
         });
     }
@@ -80,31 +81,31 @@ class ApplicationManager {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('animate-in');
+                    entry.target.classList.add("animate-in");
                 }
             });
         }, { threshold: 0.1 });
 
-        document.querySelectorAll('.feature, .tech-card').forEach(el => {
+        document.querySelectorAll(".feature, .tech-card").forEach(el => {
             observer.observe(el);
         });
     }
 
     async registerServiceWorker() {
         try {
-            const registration = await navigator.serviceWorker.register('/sw.js');
-            console.log('Service Worker registered:', registration);
+            const registration = await navigator.serviceWorker.register("/sw.js");
+            console.log("Service Worker registered:", registration);
         } catch (error) {
-            console.log('Service Worker registration failed:', error);
+            console.log("Service Worker registration failed:", error);
         }
     }
 
     showTechDetails(tech) {
         const details = {
-            'Python': 'Backend processing with Flask, Django, FastAPI. ML with scikit-learn, TensorFlow.',
-            'JavaScript': 'Modern ES6+ features, async/await, Web APIs, React, Node.js.',
-            'R': 'Statistical analysis with ggplot2, dplyr, caret. Advanced data visualization.',
-            'HTML5/CSS3': 'Semantic markup, responsive design, CSS Grid, Flexbox, animations.'
+            "Python": "Backend processing with Flask, Django, FastAPI. ML with scikit-learn, TensorFlow.",
+            "JavaScript": "Modern ES6+ features, async/await, Web APIs, React, Node.js.",
+            "R": "Statistical analysis with ggplot2, dplyr, caret. Advanced data visualization.",
+            "HTML5/CSS3": "Semantic markup, responsive design, CSS Grid, Flexbox, animations."
         };
 
         if (details[tech]) {
@@ -114,8 +115,8 @@ class ApplicationManager {
 
     showNotification(message) {
         // Create modern notification
-        const notification = document.createElement('div');
-        notification.className = 'notification';
+        const notification = document.createElement("div");
+        notification.className = "notification";
         notification.textContent = message;
         notification.style.cssText = `
             position: fixed;
@@ -134,21 +135,58 @@ class ApplicationManager {
         document.body.appendChild(notification);
 
         setTimeout(() => {
-            notification.style.animation = 'slideOut 0.3s ease';
+            notification.style.animation = "slideOut 0.3s ease";
             setTimeout(() => notification.remove(), 300);
         }, 3000);
     }
 
     startPerformanceMonitoring() {
         // Performance monitoring
-        if ('performance' in window) {
+        if ("performance" in window) {
             const perfData = {
                 loadTime: performance.now(),
-                memory: navigator.deviceMemory || 'unknown',
-                connection: navigator.connection?.effectiveType || 'unknown'
+                memory: navigator.deviceMemory || "unknown",
+                connection: navigator.connection?.effectiveType || "unknown"
             };
             
-            console.log('Performance metrics:', perfData);
+            console.log("Performance metrics:", perfData);
+        }
+    }
+
+    setupContentGeneratorForm() {
+        const contentForm = document.getElementById("content-form");
+        const outputContent = document.getElementById("output-content");
+
+        if (contentForm) {
+            contentForm.addEventListener("submit", async (event) => {
+                event.preventDefault();
+
+                const topic = document.getElementById("topic").value;
+                const length = document.getElementById("length").value;
+                const style = document.getElementById("style").value;
+
+                outputContent.textContent = "Generating content...";
+
+                try {
+                    const response = await fetch("/api/generate", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({ topic, length: parseInt(length), style }),
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    const data = await response.json();
+                    outputContent.textContent = data.content;
+                } catch (error) {
+                    console.error("Error generating content:", error);
+                    outputContent.textContent = "Failed to generate content. Please try again.";
+                }
+            });
         }
     }
 
@@ -176,7 +214,7 @@ class ApplicationManager {
 }
 
 // CSS animations
-const style = document.createElement('style');
+const style = document.createElement("style");
 style.textContent = `
     @keyframes fadeIn {
         from { opacity: 0; transform: translateY(20px); }
@@ -207,8 +245,9 @@ document.head.appendChild(style);
 const app = new ApplicationManager();
 
 // Export for module usage
-if (typeof module !== 'undefined' && module.exports) {
+if (typeof module !== "undefined" && module.exports) {
     module.exports = ApplicationManager;
 }
 
-console.log('Modern JavaScript application loaded by Gabriel Demetrios Lafis');
+console.log("Modern JavaScript application loaded by Gabriel Demetrios Lafis");
+

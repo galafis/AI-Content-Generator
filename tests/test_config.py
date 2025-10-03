@@ -14,7 +14,7 @@ from unittest.mock import patch
 # Adiciona o diretório raiz ao path para importar config
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
-from config import (
+from config.config import (
     APP_CONFIG,
     CONTENT_CONFIG,
     ANALYTICS_CONFIG,

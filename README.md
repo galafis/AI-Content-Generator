@@ -49,17 +49,37 @@ Sistema completo de geração de conteúdo que utiliza inteligência artificial 
 
 ```
 AI-Content-Generator/
-├── app.py                  # Aplicação principal Python/Flask
-├── app.js                  # Funcionalidades JavaScript
-├── index.html              # Interface web principal
-├── styles.css              # Estilos modernos e responsivos
-├── analytics.R             # Scripts de análise estatística
-├── package.json            # Dependências Node.js
-├── requirements.txt        # Dependências Python
+├── src/                    # Código fonte da aplicação
+│   ├── app.py              # Aplicação principal Python/Flask
+│   ├── analytics.R         # Scripts de análise estatística
+│   └── content_generator.py # Módulo de geração de conteúdo
+├── index.html              # Interface web principal (para GitHub Pages)
+├── app.js                  # Funcionalidades JavaScript (para GitHub Pages)
+├── styles.css              # Estilos modernos e responsivos (para GitHub Pages)
+
+├── tests/                  # Testes unitários e de integração
+│   ├── app.test.js         # Testes JavaScript
+│   ├── test_analytics.R    # Testes R
+│   └── test_config.py      # Testes Python
+├── config/                 # Arquivos de configuração
+│   └── config.py           # Configurações da aplicação
+├── assets/                 # Imagens e outros recursos estáticos
+│   ├── hero_image.png      # Imagem hero profissional
+│   └── architecture.png    # Diagrama de arquitetura do sistema
+├── docs/                   # Documentação adicional
 ├── .gitignore             # Arquivos ignorados pelo Git
 ├── LICENSE                # Licença MIT
-└── README.md              # Documentação
+├── package.json            # Dependências Node.js
+├── requirements.txt        # Dependências Python
+└── README.md              # Documentação principal (Português)
+└── README_en.md           # Documentação principal (Inglês)
 ```
+
+## 🗺️ Arquitetura do Sistema
+
+![Diagrama de Arquitetura](architecture.png)
+
+Este diagrama ilustra a arquitetura do sistema, desde a interação do usuário com o frontend até o processamento no backend, análise de dados e uso de modelos de IA.
 
 ## 🚀 Quick Start
 
@@ -88,7 +108,7 @@ pip install -r requirements.txt
 
 3. **Instale dependências R:**
 ```r
-install.packages(c('ggplot2', 'dplyr', 'corrplot', 'plotly'))
+install.packages(c(\'ggplot2\', \'dplyr\', \'corrplot\', \'plotly\'))
 ```
 
 4. **Execute a aplicação:**
@@ -120,13 +140,13 @@ print(content)
 ### Análise de Dados
 ```r
 # Análise estatística em R
-source('analytics.R')
+source(\'analytics.R\')
 
 # Criar instância do analisador
 analyzer <- DataAnalyzer$new()
 
 # Carregar e analisar dados
-analyzer$load_data('data.csv')
+analyzer$load_data(\'data.csv\')
 results <- analyzer$analyze()
 analyzer$generate_visualizations()
 ```
@@ -140,9 +160,9 @@ class ContentManager {
     }
     
     async generateContent(prompt) {
-        const response = await fetch('/api/generate', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+        const response = await fetch(\'/api/generate\', {
+            method: \'POST\',
+            headers: {\'Content-Type\': \'application/json\'},
             body: JSON.stringify({prompt: prompt})
         });
         return await response.json();
@@ -181,20 +201,20 @@ POST /api/export           # Exportar resultados
 # Gerar artigo
 curl -X POST "http://localhost:5000/api/generate" \
   -H "Content-Type: application/json" \
-  -d '{
+  -d \'{
     "type": "article",
     "topic": "Machine Learning",
     "length": 800,
     "language": "pt-br"
-  }'
+  }\'
 
 # Análise de dados
 curl -X POST "http://localhost:5000/api/analyze" \
   -H "Content-Type: application/json" \
-  -d '{
+  -d \'{
     "data_source": "sales_data.csv",
     "analysis_type": "descriptive"
-  }'
+  }\'
 ```
 
 ## 📈 Visualizações e Dashboards
@@ -209,7 +229,7 @@ curl -X POST "http://localhost:5000/api/analyze" \
 ```javascript
 // Atualização em tempo real
 setInterval(async () => {
-    const metrics = await fetch('/api/metrics').then(r => r.json());
+    const metrics = await fetch(\'/api/metrics\').then(r => r.json());
     updateDashboard(metrics);
 }, 5000);
 ```
@@ -220,16 +240,16 @@ setInterval(async () => {
 ```python
 # config.py
 APP_CONFIG = {
-    'debug': True,
-    'host': '0.0.0.0',
-    'port': 5000,
-    'max_content_length': 16 * 1024 * 1024  # 16MB
+    \'debug\': True,
+    \'host\': \'0.0.0.0\',
+    \'port\': 5000,
+    \'max_content_length\': 16 * 1024 * 1024  # 16MB
 }
 
 CONTENT_CONFIG = {
-    'default_language': 'pt-br',
-    'max_article_length': 2000,
-    'supported_formats': ['html', 'markdown', 'pdf']
+    \'default_language\': \'pt-br\',
+    \'max_article_length\': 2000,
+    \'supported_formats\': [\'html\', \'markdown\', \'pdf\']
 }
 ```
 

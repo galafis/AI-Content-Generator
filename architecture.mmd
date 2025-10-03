@@ -1,0 +1,10 @@
+graph TD
+    A[Usuário] --> B(Frontend: HTML, CSS, JS)
+    B --> C{Backend: Python/Flask}
+    C --> D[Análise de Dados: R, Python]
+    D --> E[Modelos de IA]
+    C --> F[Banco de Dados/Cache]
+    E --> C
+    F --> C
+    C --> B
+    B --> A

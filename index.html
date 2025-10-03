@@ -37,6 +37,32 @@
                     </div>
                 </div>
             </section>
+
+            <section class="content-generator">
+                <h2>Generate Content</h2>
+                <form id="content-form">
+                    <div class="form-group">
+                        <label for="topic">Topic:</label>
+                        <input type="text" id="topic" name="topic" placeholder="e.g., Artificial Intelligence" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="length">Length (characters):</label>
+                        <input type="number" id="length" name="length" value="500" min="100" max="2000" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="style">Style:</label>
+                        <select id="style" name="style">
+                            <option value="technical">Technical</option>
+                            <option value="marketing">Marketing</option>
+                        </select>
+                    </div>
+                    <button type="submit">Generate</button>
+                </form>
+                <div class="generated-content-output">
+                    <h3>Generated Content:</h3>
+                    <pre id="output-content"></pre>
+                </div>
+            </section>
             
             <section class="features">
                 <h2>Key Features</h2>
@@ -72,3 +98,4 @@
     <script src="app.js"></script>
 </body>
 </html>
+
