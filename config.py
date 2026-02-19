@@ -16,7 +16,7 @@ APP_CONFIG: Dict[str, Any] = {
     'host': os.getenv('FLASK_HOST', '0.0.0.0'),
     'port': int(os.getenv('FLASK_PORT', 5000)),
     'max_content_length': 16 * 1024 * 1024,  # 16MB
-    'secret_key': os.getenv('SECRET_KEY', 'dev-key-change-in-production'),
+    'secret_key': os.getenv("SECRET_KEY"),
     'testing': False
 }
 
